@@ -9,8 +9,7 @@ const winnerlist = function(req, res){
             {year:'2002', team:'Brazil'},
             {year:'2006', team:'Italy'},
             {year:'2010', team:'Spain'},
-            {year:'2014', team:'Germany'},
-            {year:'2018', team:'France'}
+            {year:'2014', team:'Germany'}
         ]});
 };
 module.exports = {
