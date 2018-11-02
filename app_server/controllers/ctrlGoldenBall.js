@@ -1,16 +1,36 @@
+const request = require('request');
+const apiURL = require('./apiURLs');
 
 const winnerlist = function(req, res){
-    res.render('goldenball',{
-        winners:
-        [
-            {year:'1990', player:'Salvatore Schillaci', team: 'Italy'},
-            {year:'1994', player:'Romário', team: 'Brazil'},
-            {year:'1998', player:'Ronaldo', team: 'Brazil'},
-            {year:'2002', player:'Oliver Khan', team: 'Germany'},
-            {year:'2006', player:'Zinedine Zidane', team: 'France'},
-            {year:'2010', player:'Diego Forlán', team: 'Uruguay'},
-            {year:'2014', player:'Lionel Messi', team: 'Argentina'}
-        ]});
+
+    const path = '/api/goldenball';
+    const requestOptions = {
+        url : apiURL.server + path,
+        method : 'GET',
+        json : {},
+        qs : {}
+    };
+
+    request(
+        requestOptions,
+        function (err, response, body){
+            if (err){
+                res.render('error', {message: err.message});
+            }
+            else if (response.statusCode != 200){
+                res.render('error', {message: 'Error accessing API: ' + response.statusMessage + " ("+ response.statusCode + ")" });
+            }
+            else if (!(body instanceof Array)) {
+                res.render('error', {message: 'Unexpected response data'});
+            }
+            else if (!body.length){
+                res.render('error', {message: 'No documents in collection'});
+            }
+            else {
+                res.render('goldenball', {winners: body});
+            }
+        }
+    );
 };
 
 module.exports = {
