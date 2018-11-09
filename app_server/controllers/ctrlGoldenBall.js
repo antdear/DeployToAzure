@@ -1,7 +1,7 @@
 const request = require('request');
 const apiURL = require('./apiURLs');
 
-const winnerlist = function(req, res){
+const winnerList = function(req, res){
 
     const path = '/api/goldenball';
     const requestOptions = {
@@ -34,5 +34,5 @@ const winnerlist = function(req, res){
 };
 
 module.exports = {
-    winnerlist
+    winnerList
 };
